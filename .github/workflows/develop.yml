@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  SERVICE_NAME: tu-servicio-cloud-run  # Reemplaza con el nombre de tu servicio
+  SERVICE_NAME: dds-open-api  # Reemplaza con el nombre de tu servicio
 
 jobs:
   deploy:
