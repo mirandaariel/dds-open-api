@@ -28,7 +28,7 @@ class api {
                 "Type"        => "Client Error",
                 "Status"      => 400,
                 "Message"     => "Bad Request",
-                "Description" => "HTTP response for the request by the client was not processed, as the server could not understand what the client is asking for",
+                "Description" => "#2. HTTP response for the request by the client was not processed, as the server could not understand what the client is asking for",
                 "Required"    => array(),            ),
             "header" => array(),
         ),
