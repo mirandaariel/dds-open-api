@@ -8,6 +8,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   SERVICE_NAME: dds-open-api  # Reemplaza con el nombre de tu servicio
+  REGION: us-central1
 
 jobs:
   deploy:
@@ -25,18 +26,19 @@ jobs:
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
 
-    - name: Configure Docker
-      run: gcloud auth configure-docker
+    - name: Configure Docker for Artifact Registry
+      run: |
+        gcloud auth configure-docker $REGION-docker.pkg.dev
 
     - name: Build and Push Docker image
       run: |
-        docker build -t cloud-run-source-deploy/$PROJECT_ID/$SERVICE_NAME:${{ github.sha }} .
-        docker push cloud-run-source-deploy/$PROJECT_ID/$SERVICE_NAME:${{ github.sha }}
+        docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/$SERVICE_NAME:${{ github.sha }} .
+        docker push $REGION-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/$SERVICE_NAME:${{ github.sha }}
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy $SERVICE_NAME \
-          --image cloud-run-source-deploy/$PROJECT_ID/$SERVICE_NAME:${{ github.sha }} \
+          --image $REGION-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/$SERVICE_NAME:${{ github.sha }} \
           --platform managed \
-          --region us-central1 \
+          --region $REGION \
           --allow-unauthenticated
