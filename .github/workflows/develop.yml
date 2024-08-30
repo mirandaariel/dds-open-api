@@ -38,5 +38,5 @@ jobs:
         gcloud run deploy $SERVICE_NAME \
           --image gcr.io/$PROJECT_ID/$SERVICE_NAME:${{ github.sha }} \
           --platform managed \
-          --region us-central1 \  # Cambia a tu región preferida
+          --region us-central1 \
           --allow-unauthenticated
