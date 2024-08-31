@@ -35,20 +35,20 @@ jobs:
     - name: Run Pest Tests
       run: ./vendor/bin/pest --ci
 
-  sonarque:
-    name: SonarQube
-    needs: test
-    runs-on: ubuntu-latest
+  #sonarque:
+  #  name: SonarQube
+  #  needs: test
+  #  runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+  #  steps:
+  #  - uses: actions/checkout@v4
+  #    with:
+  #      fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     
-    - uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  #  - uses: sonarsource/sonarqube-scan-action@master
+  #    env:
+  #      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
     # If you wish to fail your job when the Quality Gate is red, uncomment the
     # following lines. This would typically be used to fail a deployment.
@@ -59,7 +59,7 @@ jobs:
 
   deploy:
     name: Deploy Develop
-    needs: sonarque
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
