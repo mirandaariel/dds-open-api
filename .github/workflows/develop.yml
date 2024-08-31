@@ -11,6 +11,30 @@ env:
   REGION: us-central1
 
 jobs:
+  test:
+    name: Pest Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.2
+        tools: composer:v2
+        coverage: xdebug
+
+    - name: Install Dependencies
+      run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+    - name: Grant execute permission for pest
+      run: chmod +x ./vendor/bin/pest
+
+    - name: Run Pest Tests
+      run: ./vendor/bin/pest --ci
+
   deploy:
     runs-on: ubuntu-latest
 
