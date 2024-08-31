@@ -36,6 +36,7 @@ jobs:
       run: ./vendor/bin/pest --ci
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
