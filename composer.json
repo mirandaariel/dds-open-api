@@ -11,6 +11,7 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "^2.35"
+        "pestphp/pest": "^2.35",
+        "phpstan/phpstan": "^1.12"
     }
 }

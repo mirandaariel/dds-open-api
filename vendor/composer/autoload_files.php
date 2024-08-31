@@ -19,4 +19,5 @@ return array(
     'aadac1114cab8dc19489a7f6dc24c003' => $vendorDir . '/pestphp/pest-plugin-arch/src/Autoload.php',
     'f83ed111c2f97a0449abf067f157f418' => $vendorDir . '/pestphp/pest/src/Functions.php',
     '7d2876738dc0328edeb8a103c76cd8e7' => $vendorDir . '/pestphp/pest/src/Pest.php',
+    '9b38cf48e83f5d8f60375221cd213eee' => $vendorDir . '/phpstan/phpstan/bootstrap.php',
 );
