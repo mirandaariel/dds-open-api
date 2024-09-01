@@ -78,11 +78,13 @@ class request {
         //Initiate cURL.
         $ch = curl_init( $s_url );
 
+        /*
         if ( FMWK_AMBI_DESA ) {
             // Añade estas líneas antes de curl_exec($ch)
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }
+        //*/
     
         //Tell cURL that we want to send a POST request.
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -91,8 +93,11 @@ class request {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
     
         // SSL isues
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // 2024.09.01 - seguridad requiere la siguiente linea
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        // 2024.09.01 - seguridad no permite la siguiente linea
+        //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         //Attach our encoded JSON string to the POST fields.
         if ( $s_method == "POST" )

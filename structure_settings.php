@@ -2,7 +2,7 @@
 
 
 // includes
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 use Dotenv\Dotenv;
 
 // enviorement definition
@@ -54,7 +54,7 @@ if ( FMWK_AMBI_DESA )
     define( "AUTH0_CLIENT_SECRET", $_ENV['AUTH0_CLIENT_SECRET'] );
     define( "AUTH0_AUDIENCE", $_ENV['AUTH0_AUDIENCE'] );
 }
-else if ( FMWK_AMBI_CALI )
+elseif ( FMWK_AMBI_CALI )
 {
     // server - app
     define( "SERVER_NAME", "dds-open-api-fi7pve5u3q-uc.a.run.app");
