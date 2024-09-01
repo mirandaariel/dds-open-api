@@ -92,6 +92,7 @@ else if ( $_SERVER["SERVER_NAME"] == "dds-open-api-fi7pve5u3q-uc.a.run.app" )
 }
 
 // caracteristicas del ambiente
+
 define( "FMWK_AMBI_DESA", $s_FMWK_AMBI_DESA ); 
 define( "FMWK_AMBI_CALI", $s_FMWK_AMBI_CALI );
 define( "FMWK_AMBI_PROD", $s_FMWK_AMBI_PROD ); 
