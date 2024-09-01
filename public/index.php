@@ -23,8 +23,7 @@
 
 
 // get data
-
-        
+    
     $s_request_method = $o_app_core_api->get_request_method();
 
     $s_request_resource = str_replace( "-", "_", $a_app_request_uri_path[0] );
@@ -67,15 +66,16 @@
     exit();
     //*/
 
+
 // logic
 
     // Auth0
     $configuration = new SdkConfiguration(
         strategy: SdkConfiguration::STRATEGY_API,
-        domain: 'dev-dtz8z57wa7gmx24d.us.auth0.com',
-        clientId: 'Ol8ft2iuYujZvb0PmTePifiwn0gYQfza',
-        clientSecret: '4Qzz8SpEoE9ml4getps-LJgB9Xbz5XCh49AJs4OdpAa6HHsJHWJ345WA13tgkHlj',
-        audience: ['https://dev-dtz8z57wa7gmx24d.us.auth0.com/api/v2/']
+        domain: AUTH0_DOMAIN,
+        clientId: AUTH0_CLIENT_ID,
+        clientSecret: AUTH0_CLIENT_SECRET,
+        audience: [ AUTH0_AUDIENCE ]
     );
 
     $auth0 = new Auth0($configuration);

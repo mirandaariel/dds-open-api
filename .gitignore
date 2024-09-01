@@ -4,6 +4,7 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # project
+.ENV
 /upld
 
 # Node artifact files

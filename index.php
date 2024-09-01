@@ -46,8 +46,6 @@
   // resource classes
   include_once( SERVER_PATH . "src/resource/products.php" );
   include_once( SERVER_PATH . "src/resource/product_photos.php" );
-
-  require SERVER_PATH.'vendor/autoload.php';
   
 
 // variables
