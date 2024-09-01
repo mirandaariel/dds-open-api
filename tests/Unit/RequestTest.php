@@ -1,6 +1,6 @@
 <?php
 
-require_once 'vendor/autoload.php';
+include_once dirname(__FILE__)."/../../src/core/request.php";
 
 test('send method handles GET request correctly', function () {
     $result = request::send([
