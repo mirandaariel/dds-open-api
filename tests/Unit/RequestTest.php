@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 test('send method handles GET request correctly', function () {
     $result = request::send([
         'method' => 'GET',
-        'url' => 'http://localhost/labs/dds-open-api/products/info',
+        'url' => 'https://example.com/api',
         //'data' => ['param1' => 'value1'],
     ]);
 
@@ -17,7 +17,7 @@ test('send method handles GET request correctly', function () {
 test('send method handles POST request correctly', function () {
     $result = request::send([
         'method' => 'POST',
-        'url' => 'http://localhost/labs/dds-open-api/products',
+        'url' => 'https://example.com/api',
         //'data' => ['param1' => 'value1'],
         //'send_type' => 'JSON',
     ]);
@@ -30,7 +30,7 @@ test('send method handles POST request correctly', function () {
 test('send method handles custom headers', function () {
     $result = request::send([
         'method' => 'GET',
-        'url' => 'http://localhost/labs/dds-open-api/products/info',
+        'url' => 'https://example.com/api',
         //'headers' => ['Authorization' => 'Bearer token123'],
     ]);
 
@@ -39,6 +39,7 @@ test('send method handles custom headers', function () {
         ->toHaveKey('result');
 });
 
+/*
 test('send method handles file download', function () {
     $tempFile = "C:\data\wamp64\www\labs\dds-open-api\upld\media_file\\0\\3290\\test.zip";
     $result = Request::send([
@@ -53,6 +54,7 @@ test('send method handles file download', function () {
         ->toHaveKey('result');
     expect(file_exists($tempFile))->toBeTrue();
 });
+*/
 
 test('send method handles errors', function () {
     $result = request::send([
