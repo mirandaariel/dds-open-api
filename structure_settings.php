@@ -5,18 +5,20 @@
 require 'vendor/autoload.php';
 use Dotenv\Dotenv;
 
-// Load environment variables
-$dotenv = Dotenv::createImmutable( __DIR__ );
-$dotenv->load();
-
 // enviorement definition
-$s_FMWK_AMBI_DESA = false;
-$s_FMWK_AMBI_CALI = false;
+$s_FMWK_AMBI_DESA = $_SERVER["SERVER_NAME"] == "localhost";
+$s_FMWK_AMBI_CALI = $_SERVER["SERVER_NAME"] == "dds-open-api-fi7pve5u3q-uc.a.run.app";
 $s_FMWK_AMBI_PROD = false;
 
-if ( $_SERVER["SERVER_NAME"] == "localhost" )
+define( "FMWK_AMBI_DESA", $s_FMWK_AMBI_DESA ); 
+define( "FMWK_AMBI_CALI", $s_FMWK_AMBI_CALI );
+define( "FMWK_AMBI_PROD", $s_FMWK_AMBI_PROD ); 
+
+if ( FMWK_AMBI_DESA )
 {
-    $s_FMWK_AMBI_DESA = true;
+    // Load environment variables
+    $dotenv = Dotenv::createImmutable( __DIR__ );
+    $dotenv->load();
 
     // server - app
     define( "SERVER_NAME", "localhost");
@@ -52,10 +54,8 @@ if ( $_SERVER["SERVER_NAME"] == "localhost" )
     define( "AUTH0_CLIENT_SECRET", $_ENV['AUTH0_CLIENT_SECRET'] );
     define( "AUTH0_AUDIENCE", $_ENV['AUTH0_AUDIENCE'] );
 }
-else if ( $_SERVER["SERVER_NAME"] == "dds-open-api-fi7pve5u3q-uc.a.run.app" )
+else if ( FMWK_AMBI_CALI )
 {
-    $s_FMWK_AMBI_CALI = true;
-
     // server - app
     define( "SERVER_NAME", "dds-open-api-fi7pve5u3q-uc.a.run.app");
     define( "SERVER_PATH", '/var/www/html/');
@@ -90,9 +90,3 @@ else if ( $_SERVER["SERVER_NAME"] == "dds-open-api-fi7pve5u3q-uc.a.run.app" )
     define( "AUTH0_CLIENT_SECRET", getenv( 'AUTH0_CLIENT_SECRET' ) );
     define( "AUTH0_AUDIENCE", getenv( 'AUTH0_AUDIENCE' ) );
 }
-
-// caracteristicas del ambiente
-
-define( "FMWK_AMBI_DESA", $s_FMWK_AMBI_DESA ); 
-define( "FMWK_AMBI_CALI", $s_FMWK_AMBI_CALI );
-define( "FMWK_AMBI_PROD", $s_FMWK_AMBI_PROD ); 
