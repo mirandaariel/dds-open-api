@@ -40,7 +40,7 @@ RUN set -ex; \
   } > "$PHP_INI_DIR/conf.d/cloud-run.ini"
 
 # Enable Apache modules
-RUN a2enmod rewrite
+RUN a2enmod rewrite headers
 
 # Copy in custom code from the host machine.
 WORKDIR /var/www/html
@@ -61,3 +61,11 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 # Enable .htaccess files
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
+# Add CSP header configuration
+RUN echo "\n\
+<IfModule mod_headers.c>\n\
+    Header set Content-Security-Policy \"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; upgrade-insecure-requests\"\n\
+</IfModule>" >> /etc/apache2/conf-available/security.conf
+
+RUN a2enconf security
