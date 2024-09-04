@@ -37,10 +37,14 @@ RUN set -ex; \
     echo "opcache.validate_timestamps = Off"; \
     echo "; Configure Opcache Memory (Application-specific)"; \
     echo "opcache.memory_consumption = 32"; \
+    echo "; Disable X-Powered-By header"; \
+    echo "expose_php = Off"; \
   } > "$PHP_INI_DIR/conf.d/cloud-run.ini"
 
 # Enable Apache modules
 RUN a2enmod rewrite headers
+RUN echo "ServerTokens Prod" >> /etc/apache2/apache2.conf
+RUN echo "ServerSignature Off" >> /etc/apache2/apache2.conf
 
 # Copy in custom code from the host machine.
 WORKDIR /var/www/html
@@ -66,6 +70,7 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 RUN echo "\n\
 <IfModule mod_headers.c>\n\
     Header set Content-Security-Policy \"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; upgrade-insecure-requests\"\n\
+    Header unset X-Powered-By\n\
 </IfModule>" >> /etc/apache2/conf-available/security.conf
 
 RUN a2enconf security
