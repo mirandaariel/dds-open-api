@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     curl \
-    unzip
+    unzip \
+    procps
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -75,3 +76,18 @@ RUN echo "\n\
 </IfModule>" >> /etc/apache2/conf-available/security.conf
 
 RUN a2enconf security
+
+# Create a startup script
+RUN echo '#!/bin/bash\n\
+# Attempt to disable TCP timestamps\n\
+if [ -w /proc/sys/net/ipv4/tcp_timestamps ]; then\n\
+    echo 0 > /proc/sys/net/ipv4/tcp_timestamps\n\
+fi\n\
+\n\
+# Start Apache in foreground\n\
+apache2-foreground' > /usr/local/bin/startup.sh
+
+RUN chmod +x /usr/local/bin/startup.sh
+
+# Use the startup script as the Docker entrypoint
+ENTRYPOINT ["/usr/local/bin/startup.sh"]
