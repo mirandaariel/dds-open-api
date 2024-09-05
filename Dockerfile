@@ -72,7 +72,11 @@ RUN echo "\n\
 <IfModule mod_headers.c>\n\
     Header set Content-Security-Policy \"default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; upgrade-insecure-requests\"\n\
     Header unset X-Powered-By\n\
-    Header always set Strict-Transport-Security \"max-age=300; includeSubDomains\"\n\
+    Header always set Strict-Transport-Security \"max-age=300; includeSubDomains; preload\"\n\
+    Header always set X-Frame-Options \"SAMEORIGIN\"\n\
+    Header always set X-Content-Type-Options \"nosniff\"\n\
+    Header always set Referrer-Policy \"strict-origin-when-cross-origin\"\n\
+    Header always set Permissions-Policy \"geolocation=(), microphone=(), camera=()\"\n\
 </IfModule>" >> /etc/apache2/conf-available/security.conf
 
 RUN a2enconf security
